@@ -10,6 +10,7 @@ pipeline {
         stage('Non-Parallel Stage') {
             steps {
                 echo 'This stage will be executed first.'
+                sh "mvn clean package"
             }
         }
         stage('Parallel Stage') {
@@ -23,8 +24,8 @@ pipeline {
                     stage('Sonarqube') {
                         steps {
                             withSonarQubeEnv('SonarQube') {
-                            //sh "mvn  clean package sonar:sonar -Dsonar.host_url=$SONAR_HOST_URL "
-                            echo "sonar en petclinic"
+                            sh "mvn  clean package sonar:sonar -Dsonar.host_url=$SONAR_HOST_URL "
+                            //echo "sonar en petclinic"
                             }
                          }
                     }
